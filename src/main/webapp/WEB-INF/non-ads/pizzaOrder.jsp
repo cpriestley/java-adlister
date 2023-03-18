@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../resources/css/order-pizza.css">
+  <link rel="stylesheet" href="../../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../resources/css/order-pizza.css">
   <title>Pizza World</title>
 </head>
 <body>
@@ -276,7 +276,7 @@
         </div>
         <footer class="card-footer d-flex justify-content-end">
           <nav class="nav nav-tab" id="toppings-footer">
-            <form action="./pizza-order" method="post" id="order-submission">
+            <form action="${pageContext.request.contextPath}/pizza-order" method="post" id="order-submission">
               <input type="hidden" name="crust" id="crust" value="Crispy Thin">
               <input type="hidden" name="sauce" id="sauce" value="Tomato">
               <input type="hidden" name="size" id="size" value='Medium (12")'>
@@ -295,6 +295,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-<script src="../resources/js/order-pizza.js"></script>
+<script src="../../resources/js/order-pizza.js"></script>
 </body>
 </html>

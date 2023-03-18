@@ -11,19 +11,19 @@
 </header>
 <main>
     <div class="container">
-        <h1 class="my-2">Create a new Ad</h1>
+        <h1 class="my-2">Edit Ad</h1>
         <hr>
-        <form action="./create" method="post">
+        <form action="${pageContext.request.contextPath}/ad/update/${sessionScope.ad.id}" method="post">
             <fieldset class="width-80">
                 <div class="form-group">
                     <label for="title" class="form-label">Title</label>
-                    <input id="title" name="title" class="form-control" type="text" value="${param.title}">
+                    <input id="title" name="title" class="form-control" type="text" value="${sessionScope.ad.title}">
                 </div>
                 <div class="form-group">
                     <label for="description" class="form-label">Description</label>
-                    <textarea id="description" name="description" class="form-control">${param.description}</textarea>
+                    <textarea id="description" name="description" class="form-control">${sessionScope.ad.description}</textarea>
                 </div>
-                <input type="submit" class="btn btn-small btn-dark mt-2 login">
+                <input type="submit" class="btn btn-small btn-dark mt-2 login" value="save">
             </fieldset>
         </form>
     </div>

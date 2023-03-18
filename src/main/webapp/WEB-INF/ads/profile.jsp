@@ -15,12 +15,12 @@
         <hr>
         <c:choose>
             <c:when test="${requestScope.edit eq true}">
-                <form action="./save" method="post">
+                <form action="${pageContext.request.contextPath}/user/update" method="post">
                     <jsp:include page="/WEB-INF/partials/profileEditFields.jsp" flush="true" />
                 </form>
             </c:when>
             <c:otherwise>
-                <form action="./edit" method="get">
+                <form action="${pageContext.request.contextPath}/user/update" method="get">
                     <fieldset class="width-80">
                         <p class="lead">Profile Information:</p>
                         <dl>
@@ -40,12 +40,13 @@
     <div class="container">
         <c:forEach var="ad" items="${sessionScope.userAds}">
             <div class="item">
-                <h3>
-                    <a href="./ad/${ad.id}" class="href">
-                        <c:out value="${ad.title}"/>
-                    </a>
-                </h3>
-                <p><c:out value="${ad.description}"/></p>
+                <form id="ad-update-${ad.id}" action="/ad/update/${ad.id}" method="get" class="d-inline p-0 m-0">
+                    <a href="javascript:document.getElementById('ad-update-${ad.id}').submit();">edit</a>
+                </form>
+                <form id="ad-delete-${ad.id}" action="/ad/delete/${ad.id}" method="post" class="d-inline p-0 m-0">
+                    <a href="javascript:document.getElementById('ad-delete-${ad.id}').submit();">delete</a>
+                </form>
+                <a href="/ad/${ad.id}"><c:out value="${ad.title}"/></a>
             </div>
         </c:forEach>
     </div>
@@ -53,5 +54,9 @@
 <footer>
     <jsp:include page="/WEB-INF/partials/footer.jsp"/>
 </footer>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 </body>
 </html>
