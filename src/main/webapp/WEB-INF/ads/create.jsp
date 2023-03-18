@@ -17,13 +17,13 @@
             <fieldset class="width-80">
                 <div class="form-group">
                     <label for="title" class="form-label">Title</label>
-                    <input id="title" name="title" class="form-control" type="text">
+                    <input id="title" name="title" class="form-control" type="text" value="${param.title}">
                 </div>
                 <div class="form-group">
                     <label for="description" class="form-label">Description</label>
-                    <textarea id="description" name="description" class="form-control"></textarea>
+                    <textarea id="description" name="description" class="form-control">${param.description}</textarea>
                 </div>
-                <input type="submit" class="btn btn-block btn-primary">
+                <input type="submit" class="btn btn-small btn-dark mt-2 login">
             </fieldset>
         </form>
     </div>

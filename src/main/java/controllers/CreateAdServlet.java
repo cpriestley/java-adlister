@@ -1,18 +1,20 @@
 package controllers;
 
-import models.Ad;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-import models.User;
 import data.DaoFactory;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import models.Ad;
+import models.User;
 
 import java.io.IOException;
 
+import static services.AdlisterConstants.CREATE_JSP;
+
 @WebServlet(name = "controllers.CreateAdServlet", value = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
-
-    private final String CREATE_JSP = "/WEB-INF/ads/create.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,15 +27,28 @@ public class CreateAdServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = (User) request.getSession().getAttribute("user");
+        String title = request.getParameter("title");
+
+        if (isNullEmptyOrWhiteSpaceOnly(title)) {
+            request.getRequestDispatcher(CREATE_JSP).forward(request, response);
+            return;
+        }
+
+        String description = request.getParameter("description");
+
         Ad ad = new Ad(
                 user.getId(),
-                request.getParameter("title"),
-                request.getParameter("description")
+                title,
+                description
         );
         long id = DaoFactory.getAdsDao().insert(ad);
         System.out.printf("Inserted Ad with ID: %d%n", id);
         response.sendRedirect("/ads");
+    }
+
+    private boolean isNullEmptyOrWhiteSpaceOnly(String str) {
+        return str == null || str.trim().isBlank();
     }
 }

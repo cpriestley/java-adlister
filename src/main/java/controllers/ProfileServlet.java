@@ -12,10 +12,10 @@ import services.PasswordManager;
 import java.io.IOException;
 import java.util.List;
 
+import static services.AdlisterConstants.PROFILE_JSP;
+
 @WebServlet(name = "controllers.ProfileServlet", value = {"/profile","/edit", "/save"})
 public class ProfileServlet extends HttpServlet {
-
-    private final String PROFILE_JSP = "/WEB-INF/profile.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,8 +24,11 @@ public class ProfileServlet extends HttpServlet {
             return;
         }
         User user = (User) request.getSession().getAttribute("user");
-        List<Ad> ads = DaoFactory.getAdsDao().findAdsByUserId(user.getId());
-        request.getSession().setAttribute("ads", ads);
+        List<Ad> ads = (List<Ad>) request.getSession().getAttribute("userAds");
+        if (ads == null) {
+            ads = DaoFactory.getAdsDao().findAdsByUserId(user.getId());
+            request.getSession().setAttribute("userAds", ads);
+        }
         request.setAttribute("edit", "/edit".equals(request.getRequestURI()));
         request.setAttribute("buttonText", "Save");
         request.getRequestDispatcher(PROFILE_JSP).forward(request, response);
