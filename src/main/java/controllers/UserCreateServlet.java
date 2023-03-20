@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import static services.AdlisterConstants.REGISTER_JSP;
 
-@WebServlet(name = "RegisterServlet", value = "/user/register")
+@WebServlet(name = "RegisterServlet", value = "/users/register")
 public class UserCreateServlet extends HttpServlet {
     private final PasswordManager passwordManager = new PasswordManager();
 
@@ -36,19 +36,19 @@ public class UserCreateServlet extends HttpServlet {
                 StringUtils.isNullOrEmpty(email) ||
                 StringUtils.isNullOrEmpty(password) ||
                 StringUtils.isNullOrEmpty(passwordConfirmation)) {
-            response.sendRedirect("/user/register");
+            response.sendRedirect("/users/register");
             return;
         }
 
         if (DaoFactory.getUsersDao().findByUsername(username) != null ||
                 DaoFactory.getUsersDao().findByEmail(username) != null ||
                 !password.equals(passwordConfirmation)) {
-            response.sendRedirect("/user/register");
+            response.sendRedirect("/users/register");
             return;
         }
         String hash = passwordManager.hashPassword(password);
         User user = new User(username, email, hash);
         DaoFactory.getUsersDao().insert(user);
-        response.sendRedirect("/user/profile");
+        response.sendRedirect("/users/profile");
     }
 }
